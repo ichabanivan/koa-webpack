@@ -1,0 +1,115 @@
+.item {
+
+  position: relative;
+
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+  padding: 10px;
+
+  border: 1px solid #3a3a3a;
+
+  &--active {
+
+    background-color: #ddd;
+  }
+
+  &__top {
+
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  i {
+
+    width: 5%;
+
+    cursor: pointer;
+    text-align: center;
+  }
+
+  &__text {
+
+    width: 80%;
+  }
+
+  &__label {
+
+    margin-right: 5px;
+    padding: 5px 10px;
+
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    color: #fff;
+    border-radius: 2px;
+    background-color: #3a3a3a;
+
+    font-size: 8px;
+  }
+
+  &__date {
+
+    width: 20%;
+
+    font-size: 10px;
+  }
+}
+
+.todo {
+  &__item {
+
+    display: flex;
+
+    width: 100%;
+    margin-bottom: 30px;
+
+    text-decoration: none;
+
+    color: #000;
+  }
+}
+
+button {
+
+  border: none;
+}
+
+.item__edit,
+.item__delete {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 5px;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  color: #000;
+  border: 1px solid #ccc;
+  background-color: transparent;
+
+  font-size: 14px;
+}
+
+.item__edit {
+
+  cursor: pointer;
+  text-decoration: underline;
+
+  border: 1px solid #ccc;
+  background-color: transparent;
+
+  font-style: italic;
+}

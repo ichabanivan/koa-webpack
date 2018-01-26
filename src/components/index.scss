@@ -1,0 +1,138 @@
+* {
+
+  box-sizing: border-box;
+
+  &::before,
+  &::after {
+
+    box-sizing: border-box;
+  }
+
+  &::-webkit-input-placeholder,
+  &:-moz-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+
+    color: #ccc;
+  }
+}
+
+body {
+
+  min-width: 320px;
+  margin: 0;
+  padding: 0;
+
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.todo {
+
+  width: 90%;
+  margin: auto;
+}
+
+// Modals
+
+.modal-overlay {
+
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0 , 0.5);
+}
+
+.modal {
+
+  width: 80%;
+  max-width: 500px;
+  height: 90%;
+  max-height: 200px;
+  margin: auto;
+
+  background-color: #fff;
+
+  &-container {
+
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &-content {
+
+    height: 60%;
+
+    h4 {
+
+      margin: 0;
+      padding: 20px;
+
+      text-align: center;
+    }
+  }
+
+  select {
+
+    display: block;
+
+    margin: auto;
+    padding: 5px 10px;
+
+    border: 1px solid gray;
+    background: #fff;
+
+    font-size: 14px;
+  }
+
+  &-footer {
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    height: 40%;
+
+    button {
+
+      margin: 10px;
+      padding: 10px 20px;
+
+      cursor: pointer;
+
+      color: #fff;
+      border: 1px solid #eee;
+      background-color: #3a3a3a;
+
+      &[disabled] {
+
+        opacity: 0.3;
+      }
+
+      &:hover {
+
+        color: #3a3a3a;
+        border: 1px solid #3a3a3a;
+        background-color: #fff;
+      }
+    }
+  }
+}

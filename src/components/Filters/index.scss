@@ -1,0 +1,25 @@
+.filters {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.filter {
+
+  margin: 10px;
+  padding: 10px 20px;
+
+  cursor: pointer;
+
+  color: #fff;
+  border: 1px solid #eee;
+  background-color: #3a3a3a;
+
+  &.active {
+
+    color: #3a3a3a;
+    border: 1px solid #3a3a3a;
+    background-color: #fff;
+  }
+}
