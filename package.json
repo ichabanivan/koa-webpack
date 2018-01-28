@@ -4,12 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch server ."
+    "start": "node ."
   },
   "dependencies": {
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "css-loader": "^0.28.9",
+    "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.2",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",
