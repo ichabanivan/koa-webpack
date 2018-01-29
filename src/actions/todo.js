@@ -10,7 +10,7 @@ export const updateTodo = (todo, _id) => {
 
       try {
         let response = await fetch('/updateTodo', {
-          method: 'POST',
+          method: 'PUT',
           body: JSON.stringify(todo)
         })
 
@@ -89,9 +89,7 @@ export function addNewTodo(text) {
           method: 'POST',
           body: JSON.stringify(todo)
         })
-        console.log(response);
         let res = await response.json()
-        console.log(res);
         dispatch({
           type: ACTIONS.ADD_TODO,
           todo: res
@@ -112,15 +110,12 @@ export function addNewTodo(text) {
 export function actionRemoveTodo(_id) {
   return async (dispatch) => {
     try {
-      console.log(_id);
       let response = await fetch(`/${_id}`, {
         method: 'DELETE'
       })
       let res = await response.json()
-      console.log(res);
 
       if (res.ok) {
-        console.log(_id);
         dispatch({
           type: ACTIONS.REMOVE_TODO,
           _id
@@ -140,30 +135,32 @@ export function actionRemoveTodo(_id) {
 }
 
 export function actionChangeStatus(_id, status) {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     let modified = new Date().toLocaleDateString();
     let state = getState();
     let todo = state.todos.filter((todo) => _id === todo._id)[0];
     todo.status = status;
     todo.modified = modified;
 
-    fetch('/updateTodo', {
-      method: 'POST',
-      body: JSON.stringify(todo)
-    })
-    .then(response => response.json())
-    .then(response => {
-      if (response) {
-        console.log(response);
+    try {
+      let response = await fetch('/updateTodo', {
+        method: 'PUT',
+        body: JSON.stringify(todo)
+      })
+
+      let res = await response.json()
+
+      if (res.ok) {
         dispatch({
           type: ACTIONS.UPDATE_TODO,
-          response
+          todo: res.value
         });
       } else {
         dispatch(push(`/${_id}/error`));
       }
-    })
-    .catch(error => console.log(error));
+    } catch (error) {
+      dispatch(push(`/${_id}/error`));
+    }
   };
 }
 

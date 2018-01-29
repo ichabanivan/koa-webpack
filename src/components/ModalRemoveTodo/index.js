@@ -18,8 +18,6 @@ class ModalRemoveTodo extends Component {
   agree = (e) => {
     e.preventDefault();
     const _id = this.props._id;
-    console.log(_id);
-    
 
     this.props.hideModalAndRemoveTodo(_id);
   };

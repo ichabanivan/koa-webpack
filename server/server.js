@@ -52,7 +52,6 @@ router
     } 
   })
   .post('/addTodo', async (ctx) => {
-    console.log(ctx.request.body);
     try {
       let insertOne = await ctx.app.database.collection('todos').insertOne(JSON.parse(ctx.request.body))
       ctx.body = insertOne.ops[0]
@@ -61,7 +60,7 @@ router
       ctx.status = 500;
     }
   })
-  .post('/updateTodo', async (ctx) => {
+  .put('/updateTodo', async (ctx) => {
     try {
       let todo = JSON.parse(ctx.request.body);
       let id = new ObjectId(todo._id);
