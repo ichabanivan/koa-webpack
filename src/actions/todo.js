@@ -3,55 +3,51 @@ import ACTIONS from '../constants/';
 import { push } from 'react-router-redux'
 
 export const updateTodo = (todo, _id) => {
-  return dispatch => {
+  return async dispatch => {
     todo.modified = new Date().toLocaleDateString();
     
     if (todo.body) {
-      fetch('/updateTodo', {
-        method: 'POST',
-        body: JSON.stringify(todo)
-      })
-      .then(response => response.json())
-      .then(response => {
-        console.log(response)
-        if (response) {
+
+      try {
+        let response = await fetch('/updateTodo', {
+          method: 'POST',
+          body: JSON.stringify(todo)
+        })
+
+        let res = await response.json();
+
+        if (response.ok) {
           dispatch({
             type: ACTIONS.UPDATE_TODO,
-            todo: response
+            todo: res.value
           });
-          dispatch(push(`/${ _id }`))
+          dispatch(push(`/${_id}`))
         } else {
-          dispatch(push(`/${ _id }/error`));
+          dispatch(push(`/${_id}/error`));
         }
-      })
-      .catch(error => console.log(error));
-    } else {
-      dispatch(push(`/${ _id }/error`));
+      } catch (error) {
+        console.error('Response was not received')
+        dispatch(push(`/${_id}/error`));
+      }
     }
   }
 };
-export const resetText = () => ({
-  type: ACTIONS.RESET_TEXT
-});
+
+// export const resetText = () => ({
+//   type: ACTIONS.RESET_TEXT
+// });
 
 export const newText = (text) => ({
   type: ACTIONS.NEW_TEXT,
   text
 });
 
-export const addTodo = (todo) => {
-  return {
-    type: ACTIONS.ADD_TODO,
-    todo
-  }
-};
-
-export const removeTodo = (_id) => {
-  return {
-    type: ACTIONS.REMOVE_TODO,
-    _id
-  };
-};
+// export const removeTodo = (_id) => {
+//   return {
+//     type: ACTIONS.REMOVE_TODO,
+//     _id
+//   };
+// };
 
 export const changeStatus = (todo) => {
   return {
@@ -88,49 +84,58 @@ export function addNewTodo(text) {
     };
 
     if (isUnic) {
-      console.log(todo);
       try {
         let response = await fetch('/addTodo', {
           method: 'POST',
           body: JSON.stringify(todo)
-        });
-
+        })
+        console.log(response);
         let res = await response.json()
         console.log(res);
-
         dispatch({
           type: ACTIONS.ADD_TODO,
           todo: res
         });
-        dispatch(resetText())
+        dispatch({
+          type: ACTIONS.RESET_TEXT
+        })
       } catch (error) {
         console.error('Response was not received')
         dispatch(push(`/${id}/error`));
       }
+    } else {
+      dispatch(push(`/${id}/error`));
     }
   };
 }
 
 export function actionRemoveTodo(_id) {
-  return (dispatch) => {
-    fetch('/removeTodo', {
-      method: 'POST',
-      body: _id
-    })
-    .then(response => response.json())
-    .then(response => {
-      if (response.ok) {
-        dispatch(removeTodo({
+  return async (dispatch) => {
+    try {
+      console.log(_id);
+      let response = await fetch(`/${_id}`, {
+        method: 'DELETE'
+      })
+      let res = await response.json()
+      console.log(res);
+
+      if (res.ok) {
+        console.log(_id);
+        dispatch({
           type: ACTIONS.REMOVE_TODO,
           _id
-        }));
-        dispatch(resetText());
+        });
+        dispatch({
+          type: ACTIONS.RESET_TEXT
+        });
         dispatch(push('/'));
       } else {
         dispatch(push(`/${_id}/error`));
       }
-    })
-    .catch(error => console.log(error));
+    } catch (error) {
+      console.error('Response was not received')
+      dispatch(push(`/${_id}/error`));
+    }
   }
 }
 
@@ -149,7 +154,11 @@ export function actionChangeStatus(_id, status) {
     .then(response => response.json())
     .then(response => {
       if (response) {
-        dispatch(changeStatus(response));
+        console.log(response);
+        dispatch({
+          type: ACTIONS.UPDATE_TODO,
+          response
+        });
       } else {
         dispatch(push(`/${_id}/error`));
       }

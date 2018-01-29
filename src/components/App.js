@@ -20,7 +20,6 @@ class App extends Component {
     this.props.initTodos()
   }
 
-
   render() {
     return (
       <div className="todo">

@@ -2010,6 +2010,10 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+emitter-component@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/emitter-component/-/emitter-component-1.1.1.tgz#065e2dbed6959bf470679edabeaf7981d1003ab6"
+
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
@@ -2181,6 +2185,10 @@ event-stream@~3.3.0:
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
+
+eventsource-polyfill@^0.9.6:
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/eventsource-polyfill/-/eventsource-polyfill-0.9.6.tgz#10e0d187f111b167f28fdab918843ce7d818f13c"
 
 evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
   version "1.0.3"
@@ -3415,6 +3423,12 @@ koa-webpack-dev-middleware@^2.0.2:
   dependencies:
     webpack-dev-middleware "^1.10.0"
 
+koa-webpack-hot-middleware@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/koa-webpack-hot-middleware/-/koa-webpack-hot-middleware-1.0.3.tgz#df6aafbf2d77153101e37e6a4ae70235b466f8c0"
+  dependencies:
+    webpack-hot-middleware "2.x"
+
 koa-webpack@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/koa-webpack/-/koa-webpack-2.0.3.tgz#7ac8deb0c23b2183e9431e4d85aaf36ed7096380"
@@ -3424,6 +3438,10 @@ koa-webpack@^2.0.3:
     webpack-dev-middleware "^2.0.3"
     webpack-hot-client "^1.0.1"
     webpack-log "^1.1.1"
+
+koa2-connect@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/koa2-connect/-/koa2-connect-1.0.2.tgz#cf196d70a4e6a055f717522768d26cdfc5396f7b"
 
 koa@^2.4.1:
   version "2.4.1"
@@ -5982,6 +6000,12 @@ stream-http@^2.7.2:
     to-arraybuffer "^1.0.0"
     xtend "^4.0.0"
 
+stream@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/stream/-/stream-0.0.2.tgz#7f5363f057f6592c5595f00bc80a27f5cec1f0ef"
+  dependencies:
+    emitter-component "^1.1.1"
+
 strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
@@ -6490,7 +6514,7 @@ webpack-hot-client@^1.0.1:
     webpack-log "^1.1.1"
     ws "^4.0.0"
 
-webpack-hot-middleware@^2.21.0:
+webpack-hot-middleware@2.x, webpack-hot-middleware@^2.21.0:
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/webpack-hot-middleware/-/webpack-hot-middleware-2.21.0.tgz#7b3c113a7a4b301c91e0749573c7aab28b414b52"
   dependencies:

@@ -8,7 +8,7 @@ module.exports = {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
-    'webpack-hot-middleware/?path=/__webpack_hmr&client?timeout=20000',
+    'webpack-hot-middleware/client',
     path.resolve(__dirname, 'src/index.js'),
   ],
   output: {
@@ -18,8 +18,6 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
     }),
@@ -32,10 +30,22 @@ module.exports = {
       allChunks: true,
     }),
     new webpack.NamedModulesPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        query: {
+          'presets': ['env', 'stage-0', 'react'],
+          'env': {
+            'development': {
+              'presets': ['react-hmre']
+            }
+          }
+        }
+      },
       {
         test: /\.(css|sass|scss)/,
         use: [
@@ -61,5 +71,5 @@ module.exports = {
         use: ['babel-loader'],
       },
     ],
-  },
+  }
 };

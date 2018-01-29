@@ -88,6 +88,7 @@ class Input extends Component {
     const {
       body
     } = this.state;
+    console.log(body);
 
     // If it is editing
     if (_id) {
@@ -121,7 +122,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     text: state.inputText,
     todo: state.todos.filter((todo) => {
-      todo._id === ownProps._id
+      return todo._id === ownProps._id
     })[0]
   }
 };

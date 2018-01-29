@@ -9,7 +9,6 @@ import { AppContainer } from 'react-hot-loader';
 import store, { history } from './store/';
 
 import App from './components/App';
-
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
