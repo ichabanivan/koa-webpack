@@ -2,7 +2,7 @@ const ObjectId = require('mongodb').ObjectID;
 
 let db = {};
 
-db.def = async (ctx) => {
+db.default = async (ctx) => {
   try {
     ctx.set('Content-Type', 'text/html');
     ctx.body = fs.readFileSync(path.resolve(__dirname, '../dist/index.html'));
@@ -24,7 +24,13 @@ db.listTodos = async (ctx) => {
 
 db.addTodo = async (ctx) => {
   try {
-    let insertOne = await ctx.app.database.collection('todos').insertOne(JSON.parse(ctx.request.body))
+    let date = new Date().toLocaleDateString();
+
+    let todo = JSON.parse(ctx.request.body);
+    todo.created = date;
+    todo.modified = date;
+
+    let insertOne = await ctx.app.database.collection('todos').insertOne(todo)
     ctx.body = insertOne.ops[0]
   } catch (e) {
     ctx.message = e;
@@ -34,13 +40,14 @@ db.addTodo = async (ctx) => {
 
 db.updateTodo = async (ctx) => {
   try {
+    let date = new Date().toLocaleDateString();
     let todo = JSON.parse(ctx.request.body);
     let id = new ObjectId(todo._id);
 
     ctx.body = await ctx.app.database.collection('todos')
       .findOneAndUpdate({ _id: id }, {
         $set: {
-          modified: todo.modified,
+          modified: date,
           body: todo.body,
           status: todo.status
         }

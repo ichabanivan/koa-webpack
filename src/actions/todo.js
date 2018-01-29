@@ -9,13 +9,10 @@ export const newText = (text) => ({
 
 export const updateTodo = (todo, _id) => {
   return async dispatch => {
-    todo.modified = new Date().toLocaleDateString();
-    
     if (todo.body) {
-
       try {
         let response = await fetch('/updateTodo', {
-          method: 'PUT',
+          method: 'POST',
           body: JSON.stringify(todo)
         })
 
@@ -34,13 +31,14 @@ export const updateTodo = (todo, _id) => {
         console.error('Response was not received')
         dispatch(push(`/${_id}/error`));
       }
+    } else {
+      dispatch(push(`/${_id}/error`));
     }
   }
 };
 
 export function addNewTodo(text) {
   return async (dispatch, getState) => {
-    let date = new Date().toLocaleDateString();
 
     let state = getState();
     let isUnic = true,
@@ -59,8 +57,6 @@ export function addNewTodo(text) {
     });
 
     let todo = {
-      created: date,
-      modified: date,
       body: text,
       status: 'new'
     };
@@ -68,7 +64,7 @@ export function addNewTodo(text) {
     if (isUnic) {
       try {
         let response = await fetch('/addTodo', {
-          method: 'POST',
+          method: 'PUT',
           body: JSON.stringify(todo)
         })
         let res = await response.json()
@@ -118,15 +114,13 @@ export function actionRemoveTodo(_id) {
 
 export function actionChangeStatus(_id, status) {
   return async (dispatch, getState) => {
-    let modified = new Date().toLocaleDateString();
     let state = getState();
     let todo = state.todos.filter((todo) => _id === todo._id)[0];
     todo.status = status;
-    todo.modified = modified;
 
     try {
       let response = await fetch('/updateTodo', {
-        method: 'PUT',
+        method: 'POST',
         body: JSON.stringify(todo)
       })
 
