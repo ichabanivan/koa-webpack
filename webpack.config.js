@@ -37,6 +37,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
           'presets': ['env', 'stage-0', 'react'],
           'env': {
@@ -64,12 +65,7 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         exclude: /node_modules/,
         use: 'file-loader?name=dist/fonts/[name].[ext]'
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-      },
+      }
     ],
   }
 };
