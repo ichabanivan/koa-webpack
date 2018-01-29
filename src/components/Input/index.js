@@ -61,7 +61,6 @@ class Input extends Component {
 
     if (e.charCode === 13) {
       e.preventDefault();
-      console.log(status);
       let obj = {
         _id: todo._id,
         body: e.target.value,
@@ -88,7 +87,6 @@ class Input extends Component {
     const {
       body
     } = this.state;
-    console.log(body);
 
     // If it is editing
     if (_id) {

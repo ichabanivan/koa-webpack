@@ -2,6 +2,11 @@ import ACTIONS from '../constants/';
 
 import { push } from 'react-router-redux'
 
+export const newText = (text) => ({
+  type: ACTIONS.NEW_TEXT,
+  text
+});
+
 export const updateTodo = (todo, _id) => {
   return async dispatch => {
     todo.modified = new Date().toLocaleDateString();
@@ -31,29 +36,6 @@ export const updateTodo = (todo, _id) => {
       }
     }
   }
-};
-
-// export const resetText = () => ({
-//   type: ACTIONS.RESET_TEXT
-// });
-
-export const newText = (text) => ({
-  type: ACTIONS.NEW_TEXT,
-  text
-});
-
-// export const removeTodo = (_id) => {
-//   return {
-//     type: ACTIONS.REMOVE_TODO,
-//     _id
-//   };
-// };
-
-export const changeStatus = (todo) => {
-  return {
-    type: ACTIONS.UPDATE_TODO,
-    todo
-  };
 };
 
 export function addNewTodo(text) {
@@ -166,19 +148,27 @@ export function actionChangeStatus(_id, status) {
 
 export function initTodos() {
   return async (dispatch) => {
+    let id = Math.random() * 10000;
+
     try {
-      let response = await fetch('/getTodos', {
-        method: 'POST'
+      let response = await fetch('/listTodos', {
+        method: 'GET'
       });
 
       let todos = await response.json()
 
-      dispatch({
-        type: ACTIONS.INIT_TODOS,
-        todos
-      })
+      if (todos) {
+        dispatch({
+          type: ACTIONS.INIT_TODOS,
+          todos
+        })
+      } else {
+        dispatch(push(`/${id}/error`));
+      }
+      
     } catch (error) {
       console.error('Response was not received')
+      dispatch(push(`/${id}/error`));
     }
   }
 }
